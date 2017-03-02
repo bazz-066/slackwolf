@@ -19,6 +19,7 @@ class OptionName
     const role_witch = 'role_witch';
     const role_wolfman = 'role_wolfman';
     const role_fool = 'role_fool';
+    const role_cursed = 'role_cursed';
 }
 
 class OptionType
