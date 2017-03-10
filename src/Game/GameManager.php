@@ -74,11 +74,11 @@ class GameManager
         }
 
         // Parse twin moments
-        if ( preg_match('/twinmoment/',strtolower($str)) ) { // Check for twin moment
+        if ( preg_match('/twinmoment/',strtolower($input)) ) { // Check for twin moment
           //$message = '!leave'; // Hmm, we can do better
           $victims = ['beryl','nyala'];
           $rand_key = array_rand($victims, 1); // Choose twin
-          $message = '!vote ' . $victims[$rand_key]; // End twin moment
+          $input = '!vote ' . $victims[$rand_key]; // End twin moment
         }
 	    
         // Example: [!kill, #channel, @name]
