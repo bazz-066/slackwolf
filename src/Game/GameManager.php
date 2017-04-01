@@ -168,12 +168,12 @@ class GameManager
 
         // changing from first night to day
         if ($game->getState() == GameState::FIRST_NIGHT && $newGameState == GameState::DAY) {
-            $numSeer = $game->getNumRole(Role::SEER);
+            $numSeer = $game->getNumRole(Role::SEER);echo("seer " . $numSeer);
             if ($numSeer && ! $game->seerSeen()) {
                 return;
             }
 
-            $numFool = $game->getNumRole(Role::FOOL);
+            $numFool = $game->getNumRole(Role::FOOL);echo("fool " . $numFool);
             if ($numFool && ! $game->foolSeen()) {
                 return;
             }
@@ -508,12 +508,12 @@ class GameManager
         $msg .= "Players: {$playerList}\r\n";
         $msg .= "Possible Roles: {$game->getRoleStrategy()->getRoleListMsg()}\r\n\r\n";
         $msg .= WeatherFormatter::format($game)."\r\n";
-        if ($this->optionsManager->getOptionValue(OptionName::role_seer) || $this->optionsManager->getOptionValue(OptionName::role_fool) ) {
-            $msg .= " The game will begin when the Seer(s) chooses someone.";
+        if (($this->optionsManager->getOptionValue(OptionName::role_seer) || $this->optionsManager->getOptionValue(OptionName::role_fool)) && $this->optionsManager->getOptionValue(OptionName::game_mode) != 'chaos') {
+            $msg .= " The game will begin when the Seer(s) (if there is one) chooses someone.";
         }
         $this->sendMessageToChannel($game, $msg);
 
-        if (!$this->optionsManager->getOptionValue(OptionName::role_seer) && !$this->optionsManager->getOptionValue(OptionName::role_fool)) {
+        if ((!$this->optionsManager->getOptionValue(OptionName::role_seer) && !$this->optionsManager->getOptionValue(OptionName::role_fool)) || $this->optionsManager->getOptionValue(OptionName::game_mode) == 'chaos') {
             $this->changeGameState($game->getId(), GameState::NIGHT);
         }
     }
