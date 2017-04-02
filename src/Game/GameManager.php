@@ -168,12 +168,12 @@ class GameManager
 
         // changing from first night to day
         if ($game->getState() == GameState::FIRST_NIGHT && $newGameState == GameState::DAY) {
-            $numSeer = $game->getNumRole(Role::SEER);echo("seer " . $numSeer);
+            $numSeer = $game->getNumRole(Role::SEER);
             if ($numSeer && ! $game->seerSeen()) {
                 return;
             }
 
-            $numFool = $game->getNumRole(Role::FOOL);echo("fool " . $numFool);
+            $numFool = $game->getNumRole(Role::FOOL);
             if ($numFool && ! $game->foolSeen()) {
                 return;
             }
