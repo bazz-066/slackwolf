@@ -73,6 +73,14 @@ class GameManager
             return FALSE;
         }
 
+        // Parse twin moments
+        if ( preg_match('/twinmoment/',strtolower($input)) ) { // Check for twin moment
+          //$message = '!leave'; // Hmm, we can do better
+          $victims = ['beryl','nyala'];
+          $rand_key = array_rand($victims, 1); // Choose twin
+          $input = '!vote ' . $victims[$rand_key]; // End twin moment
+        }
+	    
         // Example: [!kill, #channel, @name]
         $input_array = explode(' ', $input);
 
@@ -519,6 +527,7 @@ class GameManager
         $msg .= "Players: {$playerList}\r\n";
         $msg .= "Possible Roles: {$game->getRoleStrategy()->getRoleListMsg()}\r\n\r\n";
         $msg .= WeatherFormatter::format($game)."\r\n";
+      
         if (($this->optionsManager->getOptionValue(OptionName::role_seer) || $this->optionsManager->getOptionValue(OptionName::role_fool)) && $this->optionsManager->getOptionValue(OptionName::game_mode) != 'chaos') {
             $msg .= " The game will begin when the Seer(s) (if there is one) chooses someone.";
         }
